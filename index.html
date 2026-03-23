@@ -2,59 +2,66 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Flores 🌻</title>
+<title>Galaxia de Girasoles 🌻</title>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #0f172a;
-    overflow: hidden;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0b0f1a, #000);
+  height: 100vh;
+  touch-action: none;
 }
 
 /* CONTENEDOR */
-.container {
-    display: flex;
-    gap: 60px;
+.galaxy {
+  position: absolute;
+  width: 200vw;
+  height: 200vh;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  transition: transform 0.1s ease-out;
 }
 
-/* FLOR */
-.flower {
-    position: relative;
-    width: 120px;
-    height: 120px;
+/* GIRASOL */
+.sunflower {
+  position: absolute;
+  width: 60px;
+  height: 60px;
 }
 
 /* CENTRO */
 .center {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    background: #5a3e1b;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2; /* IMPORTANTE */
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #5a3e1b;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }
 
 /* PETALOS */
 .petal {
-    position: absolute;
-    width: 30px;
-    height: 60px;
-    background: gold;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform-origin: center -20px;
-    animation: rotar 6s linear infinite;
+  position: absolute;
+  width: 14px;
+  height: 30px;
+  background: linear-gradient(#ffd54f, #ffb300);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform-origin: center -10px;
 }
 
-/* GENERAR 12 PETALOS */
+/* 12 pétalos */
 .petal:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); }
 .petal:nth-child(2) { transform: translate(-50%, -50%) rotate(30deg); }
 .petal:nth-child(3) { transform: translate(-50%, -50%) rotate(60deg); }
@@ -68,49 +75,89 @@ body {
 .petal:nth-child(11){ transform: translate(-50%, -50%) rotate(300deg); }
 .petal:nth-child(12){ transform: translate(-50%, -50%) rotate(330deg); }
 
-/* ANIMACION SUAVE */
-@keyframes rotar {
-    0% { filter: brightness(1); }
-    50% { filter: brightness(1.3); }
-    100% { filter: brightness(1); }
+/* ANIMACION ORBITA */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  animation: spin linear infinite;
 }
 
-/* TEXTO */
-.text {
-    position: absolute;
-    bottom: 50px;
-    color: white;
-    font-size: 28px;
-    text-align: center;
-    width: 100%;
+@keyframes spin {
+  from { transform: rotate(0deg) translateX(var(--radius)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg); }
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="galaxy" id="galaxy"></div>
 
-    <div class="flower">
-        <div class="center"></div>
-        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    </div>
+<script>
+const galaxy = document.getElementById("galaxy");
 
-    <div class="flower">
-        <div class="center"></div>
-        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    </div>
+/* CREAR GIRASOL */
+function createSunflower() {
+  const flower = document.createElement("div");
+  flower.className = "sunflower";
 
-</div>
+  const center = document.createElement("div");
+  center.className = "center";
+  flower.appendChild(center);
 
-<div class="text">Para ti 🌻</div>
+  for (let i = 0; i < 12; i++) {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    flower.appendChild(petal);
+  }
+
+  return flower;
+}
+
+/* CREAR ORBITAS */
+for (let i = 0; i < 20; i++) {
+  const orbit = document.createElement("div");
+  orbit.className = "orbit";
+
+  let radius = 100 + i * 40;
+
+  orbit.style.setProperty("--radius", radius + "px");
+  orbit.style.animationDuration = (10 + i * 2) + "s";
+
+  const sunflower = createSunflower();
+  orbit.appendChild(sunflower);
+
+  galaxy.appendChild(orbit);
+}
+
+/* MOVIMIENTO INTERACTIVO */
+let posX = 0;
+let posY = 0;
+
+function moveGalaxy(x, y) {
+  posX += (x - posX) * 0.05;
+  posY += (y - posY) * 0.05;
+
+  galaxy.style.transform =
+    `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px))`;
+}
+
+/* MOUSE */
+document.addEventListener("mousemove", (e) => {
+  let x = (e.clientX - window.innerWidth / 2) / 20;
+  let y = (e.clientY - window.innerHeight / 2) / 20;
+  moveGalaxy(x, y);
+});
+
+/* TOUCH (CELULAR) */
+document.addEventListener("touchmove", (e) => {
+  let touch = e.touches[0];
+  let x = (touch.clientX - window.innerWidth / 2) / 15;
+  let y = (touch.clientY - window.innerHeight / 2) / 15;
+  moveGalaxy(x, y);
+});
+</script>
 
 </body>
 </html>
