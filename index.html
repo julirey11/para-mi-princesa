@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Flor animada</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#111;
+}
+
+/* CONTENEDOR */
+.container{
+    position:relative;
+    width:200px;
+    height:200px;
+}
+
+/* PETALOS */
+.petalo{
+    position:absolute;
+    width:100px;
+    height:100px;
+    background:#ff4d6d;
+    border-radius:50%;
+    transform-origin:bottom right;
+    animation:rotar 4s linear infinite;
+}
+
+/* POSICIONES */
+.petalo:nth-child(1){ transform: rotate(0deg) translate(50px); }
+.petalo:nth-child(2){ transform: rotate(60deg) translate(50px); }
+.petalo:nth-child(3){ transform: rotate(120deg) translate(50px); }
+.petalo:nth-child(4){ transform: rotate(180deg) translate(50px); }
+.petalo:nth-child(5){ transform: rotate(240deg) translate(50px); }
+.petalo:nth-child(6){ transform: rotate(300deg) translate(50px); }
+
+/* CENTRO */
+.centro{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:50px;
+    height:50px;
+    background:#8B4513;
+    border-radius:50%;
+    transform:translate(-50%, -50%);
+    z-index:10;
+}
+
+/* ANIMACION */
+@keyframes rotar{
+    0%{
+        transform: rotate(0deg) translate(50px);
+    }
+    100%{
+        transform: rotate(360deg) translate(50px);
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    
+    <div class="centro"></div>
+</div>
+
+</body>
+</html>
