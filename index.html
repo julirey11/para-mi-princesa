@@ -2,83 +2,117 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Flor animada</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Girasoles Animados</title>
 
 <style>
-body{
-    margin:0;
-    padding:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    background:#111;
+body {
+  margin: 0;
+  height: 100vh;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 /* CONTENEDOR */
-.container{
-    position:relative;
-    width:200px;
-    height:200px;
+.container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+/* GIRASOL */
+.sunflower {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* PETALOS */
-.petalo{
-    position:absolute;
-    width:100px;
-    height:100px;
-    background:#ff4d6d;
-    border-radius:50%;
-    transform-origin:bottom right;
-    animation:rotar 4s linear infinite;
+.petal {
+  position: absolute;
+  width: 60px;
+  height: 120px;
+  background: gold;
+  border-radius: 50%;
+  transform-origin: bottom center;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
-/* POSICIONES */
-.petalo:nth-child(1){ transform: rotate(0deg) translate(50px); }
-.petalo:nth-child(2){ transform: rotate(60deg) translate(50px); }
-.petalo:nth-child(3){ transform: rotate(120deg) translate(50px); }
-.petalo:nth-child(4){ transform: rotate(180deg) translate(50px); }
-.petalo:nth-child(5){ transform: rotate(240deg) translate(50px); }
-.petalo:nth-child(6){ transform: rotate(300deg) translate(50px); }
-
 /* CENTRO */
-.centro{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:50px;
-    height:50px;
-    background:#8B4513;
-    border-radius:50%;
-    transform:translate(-50%, -50%);
-    z-index:10;
+.center {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: #5c3b1e;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; /* SIEMPRE ENCIMA */
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
 
 /* ANIMACION */
-@keyframes rotar{
-    0%{
-        transform: rotate(0deg) translate(50px);
-    }
-    100%{
-        transform: rotate(360deg) translate(50px);
-    }
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.sunflower {
+  animation: spin 10s linear infinite;
+}
+
+/* RESPONSIVE (celular) */
+@media (max-width: 500px) {
+  .container {
+    width: 220px;
+    height: 220px;
+  }
+
+  .petal {
+    width: 40px;
+    height: 90px;
+  }
+
+  .center {
+    width: 60px;
+    height: 60px;
+  }
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    
-    <div class="centro"></div>
+  <div class="sunflower" id="flower"></div>
 </div>
+
+<script>
+const flower = document.getElementById("flower");
+
+const petals = 16; // cantidad de pétalos
+
+for (let i = 0; i < petals; i++) {
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+
+  const angle = (360 / petals) * i;
+
+  petal.style.transform = `rotate(${angle}deg) translateY(-100px)`;
+
+  flower.appendChild(petal);
+}
+
+// centro encima
+const center = document.createElement("div");
+center.classList.add("center");
+flower.appendChild(center);
+</script>
 
 </body>
 </html>
