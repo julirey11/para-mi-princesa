@@ -2,94 +2,115 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Para Ti ❤️</title>
+<title>Flores 🌻</title>
+
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-    }
-
-    h1 {
-        position: absolute;
-        color: white;
-        font-size: 3rem;
-        text-align: center;
-        animation: fade 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes fade {
-        from {opacity: 0.5;}
-        to {opacity: 1;}
-    }
-
-    .heart {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background: red;
-        transform: rotate(45deg);
-        animation: float 5s linear infinite;
-    }
-
-    .heart::before,
-    .heart::after {
-        content: "";
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background: red;
-        border-radius: 50%;
-    }
-
-    .heart::before {
-        top: -10px;
-        left: 0;
-    }
-
-    .heart::after {
-        left: -10px;
-        top: 0;
-    }
-
-    @keyframes float {
-        0% {
-            transform: translateY(0) rotate(45deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-800px) rotate(45deg);
-            opacity: 0;
-        }
-    }
-</style>
-</head>
-<body>
-
-<h1>Te amo ❤️</h1>
-
-<script>
-function crearCorazon() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 5000);
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f172a;
+    overflow: hidden;
 }
 
-setInterval(crearCorazon, 300);
-</script>
+/* CONTENEDOR */
+.container {
+    display: flex;
+    gap: 60px;
+}
+
+/* FLOR */
+.flower {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+/* CENTRO */
+.center {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: #5a3e1b;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* IMPORTANTE */
+}
+
+/* PETALOS */
+.petal {
+    position: absolute;
+    width: 30px;
+    height: 60px;
+    background: gold;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: center -20px;
+    animation: rotar 6s linear infinite;
+}
+
+/* GENERAR 12 PETALOS */
+.petal:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); }
+.petal:nth-child(2) { transform: translate(-50%, -50%) rotate(30deg); }
+.petal:nth-child(3) { transform: translate(-50%, -50%) rotate(60deg); }
+.petal:nth-child(4) { transform: translate(-50%, -50%) rotate(90deg); }
+.petal:nth-child(5) { transform: translate(-50%, -50%) rotate(120deg); }
+.petal:nth-child(6) { transform: translate(-50%, -50%) rotate(150deg); }
+.petal:nth-child(7) { transform: translate(-50%, -50%) rotate(180deg); }
+.petal:nth-child(8) { transform: translate(-50%, -50%) rotate(210deg); }
+.petal:nth-child(9) { transform: translate(-50%, -50%) rotate(240deg); }
+.petal:nth-child(10){ transform: translate(-50%, -50%) rotate(270deg); }
+.petal:nth-child(11){ transform: translate(-50%, -50%) rotate(300deg); }
+.petal:nth-child(12){ transform: translate(-50%, -50%) rotate(330deg); }
+
+/* ANIMACION SUAVE */
+@keyframes rotar {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+    100% { filter: brightness(1); }
+}
+
+/* TEXTO */
+.text {
+    position: absolute;
+    bottom: 50px;
+    color: white;
+    font-size: 28px;
+    text-align: center;
+    width: 100%;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="flower">
+        <div class="center"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+
+    <div class="flower">
+        <div class="center"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+
+</div>
+
+<div class="text">Para ti 🌻</div>
 
 </body>
 </html>
