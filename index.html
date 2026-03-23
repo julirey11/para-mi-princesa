@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Galaxia de Girasoles 🌻</title>
+<title>Ramo de Girasoles 🌻</title>
 
 <style>
 * {
@@ -12,36 +12,70 @@
 }
 
 body {
-  overflow: hidden;
-  background: radial-gradient(circle at center, #0b0f1a, #000);
   height: 100vh;
-  touch-action: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, #0b0f1a, #000);
+  overflow: hidden;
 }
 
 /* CONTENEDOR */
-.galaxy {
-  position: absolute;
-  width: 200vw;
-  height: 200vh;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  transition: transform 0.1s ease-out;
+.bouquet {
+  position: relative;
+  width: 300px;
+  height: 400px;
 }
 
-/* GIRASOL */
-.sunflower {
+/* TALLOS */
+.stem {
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 6px;
+  height: 200px;
+  background: linear-gradient(#2e7d32, #1b5e20);
+  bottom: 0;
+  left: 50%;
+  transform-origin: bottom;
+  animation: sway 4s ease-in-out infinite;
+}
+
+/* HOJAS */
+.leaf {
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  background: #2e7d32;
+  border-radius: 20px 0;
+}
+
+.leaf.left {
+  left: -30px;
+  bottom: 80px;
+  transform: rotate(-30deg);
+}
+
+.leaf.right {
+  right: -30px;
+  bottom: 120px;
+  transform: rotate(30deg);
+}
+
+/* FLOR */
+.flower {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* CENTRO */
 .center {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #5a3e1b;
+  width: 35px;
+  height: 35px;
+  background: radial-gradient(circle, #6b3e1d, #3e260f);
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -52,13 +86,13 @@ body {
 /* PETALOS */
 .petal {
   position: absolute;
-  width: 14px;
-  height: 30px;
+  width: 22px;
+  height: 45px;
   background: linear-gradient(#ffd54f, #ffb300);
   border-radius: 50%;
   top: 50%;
   left: 50%;
-  transform-origin: center -10px;
+  transform-origin: center -15px;
 }
 
 /* 12 pétalos */
@@ -75,89 +109,95 @@ body {
 .petal:nth-child(11){ transform: translate(-50%, -50%) rotate(300deg); }
 .petal:nth-child(12){ transform: translate(-50%, -50%) rotate(330deg); }
 
-/* ANIMACION ORBITA */
-.orbit {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  animation: spin linear infinite;
+/* ANIMACION */
+@keyframes sway {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-50%) rotate(3deg); }
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg) translateX(var(--radius)) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg); }
+/* POSICION DE CADA FLOR */
+.stem:nth-child(1) { left: 50%; }
+.stem:nth-child(2) { left: 35%; height: 180px; }
+.stem:nth-child(3) { left: 65%; height: 180px; }
+.stem:nth-child(4) { left: 25%; height: 160px; }
+.stem:nth-child(5) { left: 75%; height: 160px; }
+
+/* TEXTO */
+.text {
+  position: absolute;
+  bottom: -40px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 22px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="galaxy" id="galaxy"></div>
+<div class="bouquet">
 
-<script>
-const galaxy = document.getElementById("galaxy");
+  <!-- TALLO 1 -->
+  <div class="stem">
+    <div class="flower">
+      <div class="center"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+    <div class="leaf left"></div>
+    <div class="leaf right"></div>
+  </div>
 
-/* CREAR GIRASOL */
-function createSunflower() {
-  const flower = document.createElement("div");
-  flower.className = "sunflower";
+  <!-- TALLO 2 -->
+  <div class="stem">
+    <div class="flower">
+      <div class="center"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+  </div>
 
-  const center = document.createElement("div");
-  center.className = "center";
-  flower.appendChild(center);
+  <!-- TALLO 3 -->
+  <div class="stem">
+    <div class="flower">
+      <div class="center"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+  </div>
 
-  for (let i = 0; i < 12; i++) {
-    const petal = document.createElement("div");
-    petal.className = "petal";
-    flower.appendChild(petal);
-  }
+  <!-- TALLO 4 -->
+  <div class="stem">
+    <div class="flower">
+      <div class="center"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+  </div>
 
-  return flower;
-}
+  <!-- TALLO 5 -->
+  <div class="stem">
+    <div class="flower">
+      <div class="center"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+  </div>
 
-/* CREAR ORBITAS */
-for (let i = 0; i < 20; i++) {
-  const orbit = document.createElement("div");
-  orbit.className = "orbit";
+  <div class="text">Para ti 🌻💛</div>
 
-  let radius = 100 + i * 40;
-
-  orbit.style.setProperty("--radius", radius + "px");
-  orbit.style.animationDuration = (10 + i * 2) + "s";
-
-  const sunflower = createSunflower();
-  orbit.appendChild(sunflower);
-
-  galaxy.appendChild(orbit);
-}
-
-/* MOVIMIENTO INTERACTIVO */
-let posX = 0;
-let posY = 0;
-
-function moveGalaxy(x, y) {
-  posX += (x - posX) * 0.05;
-  posY += (y - posY) * 0.05;
-
-  galaxy.style.transform =
-    `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px))`;
-}
-
-/* MOUSE */
-document.addEventListener("mousemove", (e) => {
-  let x = (e.clientX - window.innerWidth / 2) / 20;
-  let y = (e.clientY - window.innerHeight / 2) / 20;
-  moveGalaxy(x, y);
-});
-
-/* TOUCH (CELULAR) */
-document.addEventListener("touchmove", (e) => {
-  let touch = e.touches[0];
-  let x = (touch.clientX - window.innerWidth / 2) / 15;
-  let y = (touch.clientY - window.innerHeight / 2) / 15;
-  moveGalaxy(x, y);
-});
-</script>
+</div>
 
 </body>
 </html>
